@@ -56,7 +56,6 @@ class Lyricast::Server < Sinatra::Base
 		def news_contents key, lang
 			flush_cache_if_should
 			last_modified settings.news_last_modified[key]
-			content_type 
 			return settings.news_contents_cache[[key, lang]] if settings.news_contents_cache[[key, lang]]
 			settings.news_objects_cache[key] ||= settings.news_settings_cache[key].values.map { NEWS_CLASSES[key].new _1 }
 			settings.news_contents_cache[[key, lang]] = erb :atom, content_type: 'application/atom+xml', locals: {
@@ -64,7 +63,7 @@ class Lyricast::Server < Sinatra::Base
 				key:,
 				endpoint: ENDPOINTS[key],
 				last_modified: settings.news_last_modified[key],
-				id: settings.instance_id,
+				instance_id: settings.instance_id,
 				lang:,
 				items: settings.news_objects_cache[key]
 			}

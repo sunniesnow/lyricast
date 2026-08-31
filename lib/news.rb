@@ -51,7 +51,7 @@ class Lyricast::Announcement
 	end
 
 	def contents_html lang
-		"#{html_date_range lang}\n#{escape_html @contents[lang]}"
+		"#{html_date_range lang}\n<p>#{escape_html @contents[lang]}</p>"
 	end
 end
 
