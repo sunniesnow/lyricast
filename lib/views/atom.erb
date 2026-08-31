@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="<%= Lyricast::Languages.bcp47 lang %>">
 	<title><%= CGI.escapeHTML title %></title>
 	<link href="<%= instance_id %>/<%= items.first.feed_path lang %>" rel="self" />
 	<id><%= instance_id %>/<%= items.first.feed_path lang %></id>
 	<updated><%= last_modified.iso8601 %></updated>
-	<geneartor uri="https://github.com/sunniesnow/lyricast" version="<%= Lyricast::VERSION %>">lyricast</generator>
+	<generator uri="https://github.com/sunniesnow/lyricast" version="<%= Lyricast::VERSION %>">lyricast</generator>
 <% items.each do |item| %>
 
 	<entry>
