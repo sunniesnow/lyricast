@@ -9,7 +9,6 @@ class Lyricast::RemoteSettings
 		@data_dir = data_dir
 		@login_path = File.join @data_dir, 'login'
 		@installation_id_path = File.join @data_dir, 'installation-id'
-		@config_assignment_hash_path = File.join @data_dir, 'config-assignment-hash'
 		FileUtils.mkdir_p @data_dir
 	end
 
@@ -92,8 +91,7 @@ class Lyricast::RemoteSettings
 	end
 
 	def settings
-		@config_assignment_hash ||= File.read @config_assignment_hash_path rescue nil
-		body = post_config(
+		post_config(
 			'settings',
 			projectId: @project_id,
 			userId: installation_id,
@@ -101,7 +99,7 @@ class Lyricast::RemoteSettings
 			configType: 'settings',
 			playerId: @user_id,
 			analyticsUserId: installation_id,
-			configAssignmentHash: @config_assignment_hash,
+			configAssignmentHash: nil,
 			environmentId: @env_id,
 			#packageVersion: REMOTE_CONFIG_PLUGIN_VERSION, # is this optional?
 			originService: 'remote-config',
@@ -110,10 +108,7 @@ class Lyricast::RemoteSettings
 				app: {},
 				user: {},
 			},
-		)
-		@config_assignment_hash = body[:metadata][:configAssignmentHash]
-		File.write @config_assignment_hash_path, @config_assignment_hash
-		body[:configs][:settings]
+		)[:configs][:settings]
 	end
 
 end
