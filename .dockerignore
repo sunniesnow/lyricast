@@ -1,0 +1,7 @@
+README.md
+.github
+.gitignore
+config
+data
+.env
+tmp

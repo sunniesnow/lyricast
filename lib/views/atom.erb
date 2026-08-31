@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title><%= CGI.escapeHTML title %></title>
+	<link href="<%= endpoint %>?lang=<%= lang %>" rel="self" />
+	<id><%= id %>/<%= key %></id>
+	<updated><%= last_modified.iso8601 %></updated>
+
+	<% items.each do |item| %><entry>
+		<title><%= CGI.escapeHTML item.title lang %></title>
+		<id><%= id %>/<%= item.id %></id>
+		<published><%= item.date.rfc3339 %></published>
+		<content type="html"><%= item.contents_html lang %></content>
+		<summary><%= CGI.escapeHTML item.summary lang %></summary>
+	</entry>
+
+<% end %></feed>
