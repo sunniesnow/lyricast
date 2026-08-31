@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="<%= Lyricast::Languages.bcp47 lang %>">
-	<title><%= CGI.escapeHTML title %></title>
+	<title><![CDATA[<%= title %>]]></title>
 	<link href="<%= instance_id %>/<%= items.first.feed_path lang %>" rel="self" />
 	<id><%= instance_id %>/<%= items.first.feed_path lang %></id>
 	<updated><%= last_modified.iso8601 %></updated>
@@ -8,12 +8,12 @@
 <% items.each do |item| %>
 
 	<entry>
-		<title><%= CGI.escapeHTML item.title lang %></title>
+		<title><![CDATA[<%= item.title lang %>]]></title>
 		<id><%= instance_id %>/<%= item.static_path lang %></id>
 		<link rel="alternate" href="<%= instance_id %>/<%= item.static_path lang %>"/>
 		<published><%= item.date.rfc3339 %></published>
 		<updated><%= item.date.rfc3339 %></updated>
-		<content type="html"><%= item.contents_html lang %></content>
-		<summary><%= CGI.escapeHTML item.summary lang %></summary>
+		<content type="html"><![CDATA[<%= item.contents_html lang %>]]></content>
+		<summary><![CDATA[<%= item.summary lang %>]]></summary>
 	</entry>
 <% end %></feed>
