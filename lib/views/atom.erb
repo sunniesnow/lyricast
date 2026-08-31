@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 	<title><%= CGI.escapeHTML title %></title>
-	<link href="<%= endpoint %>?lang=<%= lang %>" rel="self" />
-	<id><%= instance_id %>/<%= key %></id>
+	<link href="<%= instance_id %>/<%= items.first.feed_path lang %>" rel="self" />
+	<id><%= instance_id %>/<%= items.first.feed_path lang %></id>
 	<updated><%= last_modified.iso8601 %></updated>
+	<geneartor uri="https://github.com/sunniesnow/lyricast" version="<%= Lyricast::VERSION %>">lyricast</generator>
 <% items.each do |item| %>
 
 	<entry>
 		<title><%= CGI.escapeHTML item.title lang %></title>
-		<id><%= instance_id %>/<%= item.id %></id>
+		<id><%= instance_id %>/<%= item.static_path lang %></id>
+		<link rel="alternate" href="<%= instance_id %>/<%= item.static_path lang %>"/>
 		<published><%= item.date.rfc3339 %></published>
 		<updated><%= item.date.rfc3339 %></updated>
 		<content type="html"><%= item.contents_html lang %></content>

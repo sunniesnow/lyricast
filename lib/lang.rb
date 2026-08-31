@@ -76,6 +76,15 @@ module Lyricast::Languages
 		}[lang]
 	end
 
+	def self.bcp47 lang
+		{
+			tw: 'zh-TW',
+			cn: 'zh-CN',
+			eng: 'en-US',
+			jp: 'ja-JP',
+		}[lang]
+	end
+
 	def self.include? lang
 		LANGUAGES.include? lang
 	end

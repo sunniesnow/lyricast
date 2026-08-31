@@ -10,9 +10,7 @@ require 'yaml'
 
 require 'sinatra/base'
 
-module Lyricast
-end
-
+require_relative 'lib/version'
 require_relative 'lib/config'
 require_relative 'lib/lang'
 require_relative 'lib/api'

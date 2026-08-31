@@ -28,10 +28,46 @@ module Lyricast::News
 	def escape_html text
 		text.lines(chomp: true).map { CGI.escapeHTML _1 }.join '<br>'
 	end
+
+	def static_path lang
+		"#{self.class::STATIC_DIR}/#{id}.#{lang}.html"
+	end
+
+	def feed_path lang
+		"#{self.class::STATIC_DIR}.atom?lang=#{lang}"
+	end
+
+	def full_html lang
+		title = escape_html title lang
+		url = "#{Lyricast::Config::INSTANCE_ID}/#{static_path lang}"
+		<<~HTML
+			<!DOCTYPE html>
+			<html lang="#{Lyricast::Languages.bcp47 lang}">
+				<head>
+					<title>#{title}</title>
+					<meta charset="utf-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<meta name="generator" content="lyricast v#{Lyricast::VERSION}" />
+					<meta property="og:title" content="#{title}" />
+					<meta property="og:locale" content="#{Lyricast::Languages.bcp47 lang}" />
+					<meta name="description" content="#{summary lang}" />
+					<link rel="canonical" href="#{url}" />
+					<meta property="og:site_name" content="Lyricast" />
+					<meta property="og:type" content="website" />
+					<link type="application/atom+xml" rel="alternate" href="#{Lyricast::Config::INSTANCE_ID}/#{feed_path lang}" />
+				</head>
+				<body>
+					<h1>#{title_html lang}</h1>
+					#{contents_html lang}
+				</body>
+			</html>
+		HTML
+	end
 end
 
 class Lyricast::Announcement
 	include Lyricast::News
+	STATIC_DIR = 'announcement'
 
 	def initialize text
 		@title = {}
@@ -57,6 +93,7 @@ end
 
 class Lyricast::MonthAdsSong
 	include Lyricast::News
+	STATIC_DIR = 'month-ads-song'
 
 	def initialize text
 		values = text.split ?\t
@@ -117,6 +154,7 @@ end
 
 class Lyricast::WeeklyMission
 	include Lyricast::News
+	STATIC_DIR = 'weekly-mission'
 
 	def initialize text
 		lines = text.lines chomp: true

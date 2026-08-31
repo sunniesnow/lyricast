@@ -12,7 +12,7 @@ You need to provide these values from environment variables:
 | `LYRICAST_DATA_DIR` | `data` | `/usr/share/lyricast` |
 | `LYRICAST_CONFIG_DIR` | `config` | `/etc/lyricast` |
 | `LYRICAST_CACHE_SECONDS` | `600` | `1000` |
-| `LYRICAST_INSTANCE_ID` | `lyricast` | `https://lyricast.example.com` |
+| `LYRICAST_INSTANCE_ID` | `http://localhost:4567` | `https://lyricast.example.com` |
 | `RACK_ENV` | `development` | `production` |
 | `PORT` | `4567` | `80` |
 
@@ -37,12 +37,11 @@ use `/announcement.atom?lang=cn`.
 
 ## Deployment
 
-On bare metal:
+On bare metal, with the correct environment variables exported:
 
 ```shell
 bundle install
-export LYRICAST_PROJECT_ID=72518ac6-9386-43cc-95e0-4a810f4c1de7 # fill in the correct value
-RACK_ENV=production PORT=80 bundle exec ./main.rb
+bundle exec ./main.rb
 ```
 
 With Docker Compose:
