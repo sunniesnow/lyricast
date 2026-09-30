@@ -157,7 +157,7 @@ class Lyricast::WeeklyMission
 	STATIC_DIR = 'weekly-mission'
 
 	def initialize text
-		lines = text.lines chomp: true
+		lines = text.split(/\s*\|\s*/m).each &:strip!
 		lines.delete_if { _1.start_with? ?# }
 		values = lines.shift.split ?\t
 		@id = values.shift.to_i
