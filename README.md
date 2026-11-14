@@ -22,6 +22,7 @@ In the directory specified by `LYRICAST_CONFIG_DIR`, there must be the following
 - `SongLibSheet.asset`
 - `HeadDataSheet.asset`
 - `RoleNameSheet.asset`
+- `TitleBgSheet.asset`
 
 ## Endpoints
 
