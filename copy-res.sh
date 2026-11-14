@@ -16,6 +16,7 @@ sheets=(
 	LanguageSheet
 	RoleNameSheet
 	SongLibSheet
+	TitleBgSheet
 )
 if [ -d "$dest_backup" ]; then
 	rm -r "$dest_backup"

@@ -318,7 +318,7 @@ class Lyricast::WeeklyMission
 
 	class Reward
 		def initialize type, value
-			@type = %i[coin head song gem head head role][type] || :none
+			@type = %i[coin head song gem head head role title][type] || :none
 			@value = case @type
 			when :head
 				Lyricast::Head.new value
@@ -326,6 +326,8 @@ class Lyricast::WeeklyMission
 				Lyricast::Role.new value
 			when :song
 				Lyricast::Song.new value
+			when :title
+				Lyricast::Title.new value
 			else
 				value
 			end
@@ -337,8 +339,10 @@ class Lyricast::WeeklyMission
 				"#@value #{Lyricast::Languages.jades lang}"
 			when :coin
 				"#@value #{Lyricast::Languages.coins lang}"
-			when :head, :role, :song
+			when :head, :role, :song, :title
 				@value.summary lang
+			else
+				@value.to_s
 			end
 		end
 
@@ -348,8 +352,10 @@ class Lyricast::WeeklyMission
 				"#@value #{Lyricast::Languages.jades lang}"
 			when :coin
 				"#@value #{Lyricast::Languages.coins lang}"
-			when :head, :role, :song
+			when :head, :role, :song, :title
 				@value.html lang
+			else
+				@value.to_s
 			end
 		end
 	end

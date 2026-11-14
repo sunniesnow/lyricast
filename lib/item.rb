@@ -119,3 +119,25 @@ class Lyricast::Role
 		CGI.escapeHTML summary lang
 	end
 end
+
+class Lyricast::Title
+	SHEET = Lyricast::Config.sheet :TitleBg
+	LIB = SHEET.each_with_object [] do |item, lib|
+		next unless item[:index].is_a? Integer
+		lib[item[:index]] = item
+	end.freeze
+
+	def initialize id
+		@id = id
+		item = LIB[id]
+		@name = item.slice *Lyricast::Languages
+	end
+
+	def summary lang
+		"#{Lyricast::Languages.title_screen_background_unlock lang} 《#{@name[lang]}》"
+	end
+
+	def html lang
+		CGI.escapeHTML summary lang
+	end
+end
