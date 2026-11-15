@@ -112,7 +112,7 @@ class Lyricast::Role
 	end
 
 	def summary lang
-		"#{Lyricast::Languages.theme_unlock lang} #{@name[lang]}"
+		"#{Lyricast::Languages.theme_unlock lang} 《#{@name[lang]}》"
 	end
 
 	def html lang
